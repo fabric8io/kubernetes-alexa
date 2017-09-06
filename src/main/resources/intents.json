@@ -1,0 +1,217 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "GetNamespaces",
+      "samples": [
+        "Get the namespaces",
+        "What are the available namespaces",
+        "List all namespaces",
+        "What namespaces are currently available",
+        "Show me namespaces"
+      ],
+      "slots": []
+    },
+    {
+      "name": "GetProjects",
+      "samples": [
+        "Get the projects",
+        "What are the available projects",
+        "List all projects",
+        "What projects are currently available",
+        "Show me namespaces"
+      ],
+      "slots": []
+    },
+    {
+      "name": "GetDeployments",
+      "samples": [
+        "Get the deployments",
+        "What are the available deployments",
+        "List all deployments",
+        "What deployments are currently running",
+        "Show me deployments deployments",
+        "Get the deployments in {Namespace}",
+        "Get the deployments in namespace {Namespace}",
+        "Show me the deployments in {Namespace}",
+        "Show me the services in namespace {Namespace}",
+        "List all deployments in {Namespace}",
+        "List all deployments in namespace {Namespace}"
+      ],
+      "slots": [
+        {
+          "name": "Namespace",
+          "type": "Namespace",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "GetFailingPods",
+      "samples": [
+        "Get the failing pods",
+        "What are the failing pods",
+        "List all the failing pods",
+        "What pods are currently failing",
+        "Show me the failing pods",
+        "Get the failing pods in {Namespace}",
+        "Get the failing pods in namespace {Namespace}",
+        "Show me the failing pods in {Namespace}",
+        "Show me the failing pods in namespace {Namespace}",
+        "List all failing pods in {Namespace}",
+        "List all failing pods in namespace {Namespace}",
+        "List all the failing pods in {Namespace}",
+        "List all the failing pods in namespace {Namespace}"
+      ],
+      "slots": [
+        {
+          "name": "Namespace",
+          "type": "Namespace",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "GetPods",
+      "samples": [
+        "Get the pods",
+        "What are the available pods",
+        "List all pods",
+        "What pods are currently running",
+        "Show me the pods",
+        "Get the pods in {Namespace}",
+        "Get the pods in namespace {Namespace}",
+        "Show me the pods in {Namespace}",
+        "Show me the pods in namespace {Namespace}",
+        "List all pods in {Namespace}",
+        "List all pods in namespace {Namespace}"
+      ],
+      "slots": [
+        {
+          "name": "Namespace",
+          "type": "Namespace",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "GetServices",
+      "samples": [
+        "Get the services",
+        "What are the available services",
+        "List all services",
+        "What services are currently running",
+        "Show me the services",
+        "Get the services in {Namespace}",
+        "Get the services in namespace {Namespace}",
+        "Show me the services in {Namespace}",
+        "Show me the services in namespace {Namespace}",
+        "List all services in {Namespace}",
+        "List all services in namespace {Namespace}"
+      ],
+      "slots": [
+        {
+          "name": "Namespace",
+          "type": "Namespace",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "SwitchToNamespace",
+      "samples": [
+        "Switch to {Name}",
+        "Switch to namespace {Name}",
+        "Use namespace {Name}",
+        "Use {Name}"
+      ],
+      "slots": [
+        {
+          "name": "Name",
+          "type": "Name",
+          "samples": [
+            "{Name}",
+            "Use {Name}",
+            "Use namespace {Name}",
+            "Namespace {Name}"
+          ]
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "Name",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "kubernetes",
+            "synonyms": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Namespace",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "default",
+            "synonyms": []
+          }
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-SwitchToNamespace.IntentSlot-Name",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What namespace do you want to use?"
+        },
+        {
+          "type": "PlainText",
+          "value": "In which namespace do u want me to switch?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "SwitchToNamespace",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "Name",
+            "type": "Name",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-SwitchToNamespace.IntentSlot-Name"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

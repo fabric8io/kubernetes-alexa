@@ -1,0 +1,45 @@
+{
+  "session": {
+    "new": true,
+    "sessionId": "SessionId.39025361-6b41-4925-aa7b-f07b3ac82b38",
+    "application": {
+      "applicationId": "amzn1.ask.skill.8a8757bd-8380-449b-947c-612a42e069e3"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.AEBEFZZK5AM4YPTCGAD632YEYAL5MLEQ6CEPTB2PHMEM2YY3QRFDMDXQXNHJ2LDWTPMZCYSHQ2LDJH63KLWG3TGIIVDPO233U7VC6FUUWKHLGV6E5CUZMESMGHBHMGL2GRD7EPT2VYE4G6IZ73IXYRDUSFZVTYHOVJ2HA4XH55KWMWJSHLAKPQOIV2RYUMDIO4FLHAWQRK35XIQ"
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.82f690a5-6b0b-4d34-8562-191921d9cbed",
+    "intent": {
+      "name": "GetPods",
+      "slots": {
+        "Namespace": {
+          "name": "Namespace",
+          "value": "syndesis-ci"
+        }
+      }
+    },
+    "locale": "en-US",
+    "timestamp": "2017-09-05T20:26:46Z"
+  },
+  "context": {
+    "AudioPlayer": {
+      "playerActivity": "IDLE"
+    },
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.8a8757bd-8380-449b-947c-612a42e069e3"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.AEBEFZZK5AM4YPTCGAD632YEYAL5MLEQ6CEPTB2PHMEM2YY3QRFDMDXQXNHJ2LDWTPMZCYSHQ2LDJH63KLWG3TGIIVDPO233U7VC6FUUWKHLGV6E5CUZMESMGHBHMGL2GRD7EPT2VYE4G6IZ73IXYRDUSFZVTYHOVJ2HA4XH55KWMWJSHLAKPQOIV2RYUMDIO4FLHAWQRK35XIQ"
+      },
+      "device": {
+        "supportedInterfaces": {}
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2017 original authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~         http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.fabric8</groupId>
+    <artifactId>kubernetes-alexa</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- lambda -->
+        <lambda.functionCode>${project.build.directory}/${project.build.finalName}.jar</lambda.functionCode>
+        <lambda.version>${project.version}</lambda.version>
+        <lambda.publish>true</lambda.publish>
+        <lambda.forceUpdate>true</lambda.forceUpdate>
+
+        <!-- versions -->
+        <alexa-skills-kit.version>1.3.1</alexa-skills-kit.version>
+        <junit.version>4.12</junit.version>
+        <kubernetes-client.version>2.5.1</kubernetes-client.version>
+        <sundrio.version>0.5-SNAPSHOT</sundrio.version>
+
+        <!-- plugin versions -->
+        <lambda-maven-plugin.version>2.2.2</lambda-maven-plugin.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- We are importing the kuberntes-client bom with deps to prevent jackson conflicts -->
+            <dependency>
+                <groupId>io.fabric8</groupId>
+                <artifactId>kubernetes-client-bom-with-deps</artifactId>
+                <version>${kubernetes-client.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>openshift-client</artifactId>
+            <version>${kubernetes-client.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.amazon.alexa/alexa-skills-kit -->
+        <dependency>
+            <groupId>com.amazon.alexa</groupId>
+            <artifactId>alexa-skills-kit</artifactId>
+            <version>${alexa-skills-kit.version}</version>
+        </dependency>
+
+        <!-- Compile Only Dependencies -->
+        <dependency>
+            <groupId>io.sundr</groupId>
+            <artifactId>builder-annotations</artifactId>
+            <version>${sundrio.version}</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Testing Dependencies -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.seanroy</groupId>
+                <artifactId>lambda-maven-plugin</artifactId>
+                <version>${lambda-maven-plugin.version}</version>
+                <configuration>
+                    <accessKey>${accessKey}</accessKey>
+                    <secretKey>${secretKey}</secretKey>
+                    <functionCode>${lambda.functionCode}</functionCode>
+                    <version>${lambda.version}</version>
+                    <lambdaRoleArn>arn:aws:iam::236717248081:role/lambda_basic_execution</lambdaRoleArn>
+                    <s3Bucket>iocanel-lambda-function-bucket</s3Bucket>
+                    <publish>${lambda.publish}</publish>
+                    <forceUpdate>${lambda.forceUpdate}</forceUpdate>
+                    <lambdaFunctionsJSON>
+                        [
+                            {
+                                "functionName": "KubernetesAlexaSkill",
+                                "description": "A skill that allows Alexa to talk to Kubernetes",
+                                "handler": "io.fabric8.kubernetes.alexa.KubernetesRequestStreamHandler:test",
+                                "timeout": 30,
+                                "memorySize": 512,
+                                "keepAlive": 15,
+                                "triggers": [
+                                                {
+                                                    "integration": "Alexa Skills Kit"
+                                                }
+                                            ],
+                                "environmentVariables": {
+                                                            "key1": "value1",
+                                                            "key2": "value2"
+                                                        }
+                            }
+                        ]
+                    </lambdaFunctionsJSON>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
