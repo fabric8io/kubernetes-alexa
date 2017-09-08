@@ -27,6 +27,7 @@ import io.fabric8.kubernetes.api.model.NamespaceList;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientException;
 import io.fabric8.kubernetes.client.dsl.base.BaseOperation;
+import io.fabric8.kubernetes.client.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +57,16 @@ public class SwitchToNamespace extends BaseKubernetesIntentRequestHandler<Namesp
     @Override
     public SpeechletResponse onRequest(IntentRequest request, Session session) throws SpeechletException {
         IntentContext<BaseOperation<Namespace, NamespaceList, ?, ?>> ctx = createContext(request.getIntent(), session);
+
+        //The namespace as Alexa heard it.
+        String namespace =  ctx.getVariable(Variable.Namespace, null);
+
+        if (Utils.isNullOrEmpty(namespace)) {
+          return newFailureNotice("Sorry, didn't understand which namespace you want me to use.");
+        }
+
+        //The namespace as matched in kubernetes
+        namespace = IntentContext.selectNamespace(getKubernetesClient(), namespace);
         LOGGER.info("Switching to namespace:" + ctx.getVariable(Variable.Namespace, getKubernetesClient().getNamespace()));
 
         try {
@@ -64,8 +75,7 @@ public class SwitchToNamespace extends BaseKubernetesIntentRequestHandler<Namesp
             if (ns == null) {
                 return newResponse("No namespaces found.");
             } else {
-                String namespace = ns.getMetadata().getName();
-
+                 namespace = ns.getMetadata().getName();
                 session.setAttribute(Namespace.name(), namespace);
                 return newResponse("Now using namespace " + namespace);
             }

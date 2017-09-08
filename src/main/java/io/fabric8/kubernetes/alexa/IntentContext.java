@@ -101,7 +101,7 @@ public class IntentContext<T extends BaseOperation> {
      * @param namespace     The specified namespace.
      * @return              The closest namespace if resemblance is over 80%, else null.
      */
-     static final String selectNamespace(KubernetesClient client, String namespace) {
+     public static final String selectNamespace(KubernetesClient client, String namespace) {
          if (client.isAdaptable(OpenShiftClient.class)) {
              return selectName(client.adapt(OpenShiftClient.class).projects()
                      .list()
@@ -124,7 +124,7 @@ public class IntentContext<T extends BaseOperation> {
      * @param name          The specified names.
      * @return              The closest name if resemblance is over 80%, else null.
      */
-    static final String selectName(BaseOperation<?,? extends KubernetesResourceList<?>, ?, ?> operation, String name) {
+    public static final String selectName(BaseOperation<?,? extends KubernetesResourceList<?>, ?, ?> operation, String name) {
         return selectName(operation.list().getItems().stream().map(n -> n.getMetadata().getName()), name);
     }
 
