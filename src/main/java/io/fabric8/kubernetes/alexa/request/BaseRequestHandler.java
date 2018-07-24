@@ -29,13 +29,13 @@ public abstract class BaseRequestHandler<R extends SpeechletRequest> implements 
 
     public SpeechletResponse newResponse(String responseText) {
         return new SpeechletResponseBuilder()
-                .withNewSimpleCardCard()
+                .withNewSimpleCard()
                     .withTitle("Kubernetes")
                     .withContent(getAction())
-                .endSimpleCardCard()
-                .withNewPlainTextOutputSpeechOutputSpeech()
+                .endSimpleCard()
+                .withNewPlainTextOutputSpeech()
                     .withText(responseText)
-                .endPlainTextOutputSpeechOutputSpeech()
+                .endPlainTextOutputSpeech()
                 .withShouldEndSession(false)
                 .build();
     }
@@ -45,13 +45,13 @@ public abstract class BaseRequestHandler<R extends SpeechletRequest> implements 
                 (Utils.isNotNullOrEmpty(responseText) ? responseText : "");
 
         return new SpeechletResponseBuilder()
-                .withNewSimpleCardCard()
+                .withNewSimpleCard()
                 .withTitle("Kubernetes")
                 .withContent(getAction())
-                .endSimpleCardCard()
-                .withNewPlainTextOutputSpeechOutputSpeech()
+                .endSimpleCard()
+                .withNewPlainTextOutputSpeech()
                 .withText(message)
-                .endPlainTextOutputSpeechOutputSpeech()
+                .endPlainTextOutputSpeech()
                 .withShouldEndSession(false)
                 .build();
     }
@@ -62,9 +62,9 @@ public abstract class BaseRequestHandler<R extends SpeechletRequest> implements 
                     @Override
                     public void visit(SpeechletResponseBuilder builder) {
                         builder.withNewReprompt()
-                                .withNewPlainTextOutputSpeechOutputSpeech()
+                          .withNewPlainTextOutputSpeech()
                                 .withText(repromptText)
-                                .endPlainTextOutputSpeechOutputSpeech()
+                                .endPlainTextOutputSpeech()
                                 .endReprompt();
                     }
                 }).build();

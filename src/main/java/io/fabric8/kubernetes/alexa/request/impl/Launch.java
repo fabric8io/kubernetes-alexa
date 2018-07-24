@@ -73,17 +73,17 @@ public class Launch implements RequestHandler<LaunchRequest> {
                 "Welcome to "+getClusterType()+". You are currently using namespace " + namespace + ".";
 
         return new SpeechletResponseBuilder()
-                .withNewSimpleCardCard()
+                .withNewSimpleCard()
                     .withTitle("Kubernetes")
                     .withContent("Welcome to Kubernetes skill")
-                .endSimpleCardCard()
-                .withNewPlainTextOutputSpeechOutputSpeech()
+                .endSimpleCard()
+                .withNewPlainTextOutputSpeech()
                     .withText(speechText)
-                .endPlainTextOutputSpeechOutputSpeech()
+                .endPlainTextOutputSpeech()
                 .withNewReprompt()
-                        .withNewPlainTextOutputSpeechOutputSpeech()
+                        .withNewPlainTextOutputSpeech()
                             .withText(repromptText)
-                        .endPlainTextOutputSpeechOutputSpeech()
+                        .endPlainTextOutputSpeech()
                     .endReprompt()
                 .withShouldEndSession(false)
                 .build();

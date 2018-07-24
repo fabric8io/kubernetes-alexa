@@ -72,9 +72,9 @@ public class RequestDispatcher<C> implements Speechlet {
             return factory.create(context).onRequest(request, session);
         } else {
             return new SpeechletResponseBuilder()
-                    .withNewPlainTextOutputSpeechOutputSpeech()
+                    .withNewPlainTextOutputSpeech()
                         .withText("I don't know how to do that.")
-                    .endPlainTextOutputSpeechOutputSpeech()
+                    .endPlainTextOutputSpeech()
                     .build();
         }
     }

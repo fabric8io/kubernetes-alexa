@@ -40,7 +40,7 @@
         <alexa-skills-kit.version>1.3.1</alexa-skills-kit.version>
         <junit.version>4.12</junit.version>
         <kubernetes-client.version>2.5.1</kubernetes-client.version>
-        <sundrio.version>0.5-SNAPSHOT</sundrio.version>
+        <sundrio.version>0.8.3</sundrio.version>
 
         <!-- plugin versions -->
         <lambda-maven-plugin.version>2.2.2</lambda-maven-plugin.version>
@@ -52,7 +52,7 @@
             <!-- We are importing the kuberntes-client bom with deps to prevent jackson conflicts -->
             <dependency>
                 <groupId>io.fabric8</groupId>
-                <artifactId>kubernetes-client-bom-with-deps</artifactId>
+                <artifactId>kubernetes-client</artifactId>
                 <version>${kubernetes-client.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
